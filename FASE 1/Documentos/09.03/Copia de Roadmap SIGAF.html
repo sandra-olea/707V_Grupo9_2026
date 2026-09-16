@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap del Proyecto SIGAF</title>
+<style>
+    :root {
+        --planificacion: #6366f1;
+        --analisis: #0ea5e9;
+        --desarrollo: #10b981;
+        --pruebas: #f59e0b;
+        --cierre: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+        color: #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        padding: 2vh 2vw;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 1.8vh;
+        flex-shrink: 0;
+    }
+
+    .logo-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #10b981, #0ea5e9);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        font-size: clamp(1.4rem, 3.2vh, 2.2rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, #10b981, #0ea5e9, #6366f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .subtitle {
+        color: #94a3b8;
+        font-size: clamp(0.75rem, 1.5vh, 0.95rem);
+        margin-top: 4px;
+    }
+
+    /* Week ruler - aligned to phase columns */
+    .ruler {
+        display: grid;
+        grid-template-columns: 1.1fr 1.1fr 2.4fr 1.1fr 1.1fr;
+        gap: 10px;
+        margin-bottom: 8px;
+        flex-shrink: 0;
+    }
+
+    .week-group {
+        text-align: center;
+        font-size: 0.72rem;
+        color: #64748b;
+        font-weight: 700;
+        padding: 3px 0;
+        border-bottom: 2px solid rgba(255,255,255,0.08);
+        letter-spacing: 1px;
+    }
+
+    /* Phase columns layout */
+    .board {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1.1fr 1.1fr 2.4fr 1.1fr 1.1fr;
+        gap: 10px;
+        min-height: 0;
+    }
+
+    .phase {
+        border-radius: 14px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: #1e293b;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .phase-top {
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .phase-num {
+        font-size: 0.7rem;
+        font-weight: 700;
+        opacity: 0.85;
+        letter-spacing: 1px;
+    }
+
+    .phase-title {
+        font-size: clamp(0.8rem, 1.7vh, 1.05rem);
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 2px 0;
+    }
+
+    .phase-weeks {
+        font-size: 0.72rem;
+        opacity: 0.9;
+        font-weight: 600;
+    }
+
+    .items {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        overflow: hidden;
+        flex: 1;
+    }
+
+    .item {
+        font-size: clamp(0.78rem, 1.55vh, 0.92rem);
+        line-height: 1.3;
+        padding: 8px 10px;
+        border-radius: 7px;
+        background: rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .item .ic { flex-shrink: 0; font-size: 0.95rem; }
+
+    /* modules 2-col grid for development */
+    .modules {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .module {
+        font-size: clamp(0.8rem, 1.6vh, 0.95rem);
+        line-height: 1.25;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .module .ic { flex-shrink: 0; font-size: 1rem; }
+
+    /* Phase color themes */
+    .p-plan .phase-top { background: var(--planificacion); }
+    .p-plan { border-top: 3px solid var(--planificacion); }
+    .p-ana .phase-top { background: var(--analisis); }
+    .p-ana { border-top: 3px solid var(--analisis); }
+    .p-dev .phase-top { background: var(--desarrollo); }
+    .p-dev { border-top: 3px solid var(--desarrollo); }
+    .p-qa .phase-top { background: var(--pruebas); }
+    .p-qa { border-top: 3px solid var(--pruebas); }
+    .p-cie .phase-top { background: var(--cierre); }
+    .p-cie { border-top: 3px solid var(--cierre); }
+
+    footer {
+        text-align: center;
+        margin-top: 1.2vh;
+        color: #64748b;
+        font-size: 0.72rem;
+        flex-shrink: 0;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo-badge">Capstone · APT · Duoc UC</div>
+        <h1>Roadmap del Proyecto SIGAF</h1>
+        <p class="subtitle">Sistema de Gestión y Alerta Farmacéutica · 17 semanas · 5 fases · 6 módulos</p>
+    </header>
+
+    <!-- Regla de semanas alineada a las fases -->
+    <div class="ruler">
+        <div class="week-group">SEMANA 1</div>
+        <div class="week-group">SEMANAS 2 – 3</div>
+        <div class="week-group">SEMANAS 4 – 11</div>
+        <div class="week-group">SEMANAS 12 – 15</div>
+        <div class="week-group">SEMANAS 16 – 17</div>
+    </div>
+
+    <div class="board">
+        <!-- FASE 1 -->
+        <div class="phase p-plan">
+            <div class="phase-top">
+                <div class="phase-num">FASE 1</div>
+                <div class="phase-title">Planificación</div>
+                <div class="phase-weeks">Semana 1 · 1 sem</div>
+            </div>
+            <div class="items">
+                <div class="item"><span class="ic">📋</span> Acta de Constitución</div>
+                <div class="item"><span class="ic">📝</span> Requerimientos generales</div>
+                <div class="item"><span class="ic">👥</span> Organización del equipo</div>
+                <div class="item"><span class="ic">✅</span> Aprobación del acta</div>
+            </div>
+        </div>
+
+        <!-- FASE 2 -->
+        <div class="phase p-ana">
+            <div class="phase-top">
+                <div class="phase-num">FASE 2</div>
+                <div class="phase-title">Análisis y Diseño</div>
+                <div class="phase-weeks">Semanas 2 – 3 · 2 sem</div>
+            </div>
+            <div class="items">
+                <div class="item"><span class="ic">🔍</span> Requerimientos específicos</div>
+                <div class="item"><span class="ic">🏗️</span> Arquitectura de software</div>
+                <div class="item"><span class="ic">📐</span> Casos de uso</div>
+                <div class="item"><span class="ic">🗄️</span> Modelo de datos (MER)</div>
+                <div class="item"><span class="ic">🎨</span> Prototipos y ERS</div>
+            </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="phase p-dev">
+            <div class="phase-top">
+                <div class="phase-num">FASE 3</div>
+                <div class="phase-title">Desarrollo</div>
+                <div class="phase-weeks">Semanas 4 – 11 · 8 sem</div>
+            </div>
+            <div class="modules">
+                <div class="module"><span class="ic">🔐</span> Seguridad e Inicio de Sesión</div>
+                <div class="module"><span class="ic">🚦</span> Control de Caducidad (Semáforo)</div>
+                <div class="module"><span class="ic">⚙️</span> Mantenedores (App Secundaria)</div>
+                <div class="module"><span class="ic">📦</span> Dispensación (Motor FEFO)</div>
+                <div class="module"><span class="ic">🗑️</span> Gestión de Mermas</div>
+                <div class="module"><span class="ic">📧</span> Notificaciones y Reportes</div>
+            </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="phase p-qa">
+            <div class="phase-top">
+                <div class="phase-num">FASE 4</div>
+                <div class="phase-title">Pruebas y QA</div>
+                <div class="phase-weeks">Semanas 12 – 15 · 4 sem</div>
+            </div>
+            <div class="items">
+                <div class="item"><span class="ic">🧪</span> Ambiente de pruebas</div>
+                <div class="item"><span class="ic">✔️</span> Pruebas funcionales</div>
+                <div class="item"><span class="ic">🔗</span> Pruebas de integración</div>
+                <div class="item"><span class="ic">👤</span> Pruebas con usuarios</div>
+                <div class="item"><span class="ic">🛠️</span> Corrección de defectos</div>
+            </div>
+        </div>
+
+        <!-- FASE 5 -->
+        <div class="phase p-cie">
+            <div class="phase-top">
+                <div class="phase-num">FASE 5</div>
+                <div class="phase-title">Implementación y Cierre</div>
+                <div class="phase-weeks">Semanas 16 – 17 · 2 sem</div>
+            </div>
+            <div class="items">
+                <div class="item"><span class="ic">🚀</span> Migración a producción</div>
+                <div class="item"><span class="ic">🎓</span> Capacitaciones</div>
+                <div class="item"><span class="ic">📖</span> Manuales de usuario</div>
+                <div class="item"><span class="ic">🏁</span> Acta de cierre</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Proyecto SIGAF — Sistema de Gestión y Alerta Farmacéutica · Roadmap 17 semanas
+    </footer>
+</body>
+</html>
